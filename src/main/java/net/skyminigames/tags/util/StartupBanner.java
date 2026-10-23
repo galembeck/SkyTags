@@ -42,6 +42,9 @@ public class StartupBanner {
         info(console, "Server", Bukkit.getName() + " " + Bukkit.getBukkitVersion().split("-")[0]
                 + ChatColor.DARK_GRAY + " (Java " + System.getProperty("java.version") + ")");
         info(console, "Groups from", plugin.getChat().getName() + ChatColor.DARK_GRAY + " (via Vault)");
+        info(console, "Role changes", plugin.isInstantUpdates()
+                ? ChatColor.GREEN + "instant" + ChatColor.DARK_GRAY + " (PermissionsEx events)"
+                : "every " + plugin.getTagsConfig().getUpdateIntervalSeconds() + "s");
         info(console, "Tab header/footer", plugin.getTagsConfig().isHeaderFooter() ? "on" : ChatColor.GRAY + "off");
         info(console, "Status", ChatColor.GREEN + "Enabled in " + elapsedMillis + " ms");
         console.sendMessage("");

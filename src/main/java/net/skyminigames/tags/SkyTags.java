@@ -7,12 +7,15 @@ import net.skyminigames.tags.config.TagsConfig;
 import net.skyminigames.tags.listener.PlayerListener;
 import net.skyminigames.tags.message.Messages;
 import net.skyminigames.tags.tab.TabListHeader;
+import net.skyminigames.tags.tag.PermissionsExHook;
 import net.skyminigames.tags.tag.TagManager;
 import net.skyminigames.tags.util.StartupBanner;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitTask;
+
+import java.util.concurrent.atomic.AtomicBoolean;
 
 @Getter
 public final class SkyTags extends JavaPlugin {
@@ -23,6 +26,9 @@ public final class SkyTags extends JavaPlugin {
     private TagManager tagManager;
     private TabListHeader tabListHeader;
     private BukkitTask refreshTask;
+    /** Whether PermissionsEx's change events are hooked (tags update instantly). */
+    private boolean instantUpdates;
+    private final AtomicBoolean refreshQueued = new AtomicBoolean();
 
     @Override
     public void onEnable() {
@@ -50,6 +56,7 @@ public final class SkyTags extends JavaPlugin {
 
         getServer().getPluginManager().registerEvents(new PlayerListener(this), this);
         getCommand("skytags").setExecutor(new SkyTagsCommand(this));
+        instantUpdates = PermissionsExHook.register(this, this::scheduleRefresh);
 
         startRefreshTask();
         refreshEveryone();
@@ -84,13 +91,25 @@ public final class SkyTags extends JavaPlugin {
         }
     }
 
-    /** Re-checks tags regularly, so role changes show up without rejoining. */
+    /** Fallback re-check (e.g. permissions.yml edited by hand without pex reload). */
     private void startRefreshTask() {
         if (refreshTask != null) {
             refreshTask.cancel();
         }
         long period = tagsConfig.getUpdateIntervalSeconds() * 20L;
         refreshTask = getServer().getScheduler().runTaskTimer(this, this::refreshEveryone, period, period);
+    }
+
+    /**
+     * Refreshes on the next tick (thread-safe). Many changes at once (e.g. pex reload) give a single refresh.
+     */
+    public void scheduleRefresh() {
+        if (isEnabled() && refreshQueued.compareAndSet(false, true)) {
+            getServer().getScheduler().runTask(this, () -> {
+                refreshQueued.set(false);
+                refreshEveryone();
+            });
+        }
     }
 
     private void refreshEveryone() {

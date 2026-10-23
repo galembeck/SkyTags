@@ -9,12 +9,13 @@
 # for groups whose chat prefix is longer, otherwise the tag is cut at 16.
 groups:
   Desenvolvedor:
-    prefix: "&b[Dev] "
+    prefix: "&b[DEV] "
 
 # Rank used for players whose group has no "rank" option
 default-rank: 999
 
-# How often (seconds) tags are re-checked, so role changes (pex user ... group set) show up without a rejoin
+# Role, prefix and rank changes made with pex commands (or pex reload) update the tags instantly.
+# This interval (seconds) is only a fallback, e.g. for permissions.yml edited by hand without "pex reload".
 update-interval-seconds: 5
 
 tablist:

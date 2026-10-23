@@ -3,21 +3,22 @@
 #  Placeholders no tab: {online}, {max}, {player}
 # ============================================================
 
-prefix: "&6&lSKY MINIGAMES &8» &7"
+prefix: ""
 
 tablist:
   header:
     - ""
     - "&b&lSKY &f&lMINIGAMES"
-    - "&7O mais jogado do Brasil!"
     - ""
   footer:
     - ""
-    - "&7Jogadores online: &e{online}&7/&e{max}"
-    - "&eSkyWars &8| &eBedWars &8| &eHunger Games"
+    - "&6Site: &fwww.skyminigames.com"
+    - "&6Discord: &fdiscord.gg/sky"
+    - ""
+    - "&6Adquira VIP acessando: &fskyminigames.com/loja"
     - ""
 
 command:
   reloaded: "&aSkyTags recarregado."
-  usage: "&cUse: &f/skytags reload"
-  no-permission: "&cVocê não tem permissão para isso."
+  usage: "&eUse: /skytags reload"
+  no-permission: "&cVocê não possui permissão para utilizar este comando."
