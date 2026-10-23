@@ -1,0 +1,23 @@
+# ============================================================
+#  SkyTags - mensagens (cores com "&")
+#  Placeholders no tab: {online}, {max}, {player}
+# ============================================================
+
+prefix: "&6&lSKY MINIGAMES &8» &7"
+
+tablist:
+  header:
+    - ""
+    - "&b&lSKY &f&lMINIGAMES"
+    - "&7O mais jogado do Brasil!"
+    - ""
+  footer:
+    - ""
+    - "&7Jogadores online: &e{online}&7/&e{max}"
+    - "&eSkyWars &8| &eBedWars &8| &eHunger Games"
+    - ""
+
+command:
+  reloaded: "&aSkyTags recarregado."
+  usage: "&cUse: &f/skytags reload"
+  no-permission: "&cVocê não tem permissão para isso."

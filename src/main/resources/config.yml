@@ -1,0 +1,22 @@
+# ============================================================
+#  SkyTags - configuration
+# ============================================================
+
+# Tags come from PermissionsEx (through Vault):
+#  - prefix / suffix  -> the group's "prefix" and "suffix" options
+#  - order in the tab -> the group's "rank" option (lower number = higher in the list)
+# Minecraft 1.8 limits tags to 16 characters (colour codes count). Use the overrides below
+# for groups whose chat prefix is longer, otherwise the tag is cut at 16.
+groups:
+  Desenvolvedor:
+    prefix: "&b[Dev] "
+
+# Rank used for players whose group has no "rank" option
+default-rank: 999
+
+# How often (seconds) tags are re-checked, so role changes (pex user ... group set) show up without a rejoin
+update-interval-seconds: 5
+
+tablist:
+  # Header and footer of the tab list (texts are in messages.yml)
+  header-footer: true

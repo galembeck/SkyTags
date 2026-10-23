@@ -1,0 +1,18 @@
+name: ${project.name}
+version: ${project.version}
+main: ${plugin.main}
+description: ${project.description}
+author: SkyMinigames
+depend: [Vault]
+softdepend: [PermissionsEx]
+
+commands:
+  skytags:
+    description: SkyTags administration.
+    usage: /skytags reload
+    permission: skytags.admin
+
+permissions:
+  skytags.admin:
+    description: Allows /skytags reload.
+    default: op
